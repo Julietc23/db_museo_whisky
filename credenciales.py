@@ -25,10 +25,13 @@ conn.close()
 import streamlit as st
 import sqlite3
 import openai
+import os
+import dotenv
+
+load_dotenv()
 
 # Configurar la clave API de OpenAI
-openai.api_key = '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'
-
+openai.api_key = os.getenv("API_KEY")
 # Función para verificar el usuario y la contraseña desde la base de datos SQLite
 def verificar_usuario(username, password):
     conn = sqlite3.connect('usuarios.db')
