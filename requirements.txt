@@ -1,7 +1,9 @@
 # pip install -r requirements.txt
 
 streamlit
-sqlite3
+# sqlite3
 openai
-os
-dotenv
+# os
+setuptools #para dotenv
+wheel #para dotenv
+python-dotenv

@@ -26,20 +26,53 @@ import streamlit as st
 import sqlite3
 import openai
 import os
-import dotenv
+from dotenv import load_dotenv
 
 load_dotenv()
 
 # Configurar la clave API de OpenAI
 openai.api_key = os.getenv("API_KEY")
 # Función para verificar el usuario y la contraseña desde la base de datos SQLite
+import sqlite3
+import shutil
+from datetime import datetime
+
 def verificar_usuario(username, password):
+    # Conectar a la base de datos
     conn = sqlite3.connect('usuarios.db')
     c = conn.cursor()
+    
+    # Verificar usuario
     c.execute("SELECT * FROM usuarios WHERE usuario = ? AND contraseña = ?", (username, password))
     user = c.fetchone()  # Obtiene el primer registro que coincida
+    
+    # Hacer backup si el usuario fue encontrado
+    if user:
+        backup_db()
+
     conn.close()
     return user
+
+
+
+
+
+
+
+
+   
+
+
+#SE AGREGA ESTA FUNCION 22/01/2025
+#DEBE ESTAR EN LA EJECUCION DE LA CONSULTA DE LA DB
+def backup_db():
+    # Obtener la fecha y hora actual
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    # Crear el nombre del archivo de respaldo
+    backup_filename = f"usuarios_backup_{timestamp}.db"
+    # Hacer una copia del archivo de la base de datos
+    shutil.copyfile('usuarios.db', backup_filename)
+    print(f"Backup realizado: {backup_filename}")
 
 # Función para interactuar con OpenAI y generar una respuesta
 def obtener_respuesta_openai(pregunta):
@@ -77,6 +110,7 @@ def login():
     
     if st.button("Ingresar"):
         if verificar_usuario(username, password):
+        # if crear_usuario(username, password):
             st.session_state.authenticated = True
             st.success("¡Acceso concedido!")
             return True
@@ -108,6 +142,4 @@ if st.session_state.authenticated:
         st.write("Respuesta de la base de datos:")
         st.write(respuesta)
 
-    # # Agregar más widgets o funcionalidades en esta sección
-    # option = st.selectbox("Selecciona una opción", ["Opción 1", "Opción 2", "Opción 3"])
-    # st.write(f"Seleccionaste: {option}")
+   
