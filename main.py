@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 # Carga de variables
 #load_dotenv()
 
-st.secrets["API_KEY"]
+openai.api_key = st.secrets["API_KEY"]
 
 # Configurar la clave API de OpenAI
 #openai.api_key = os.getenv("API_KEY")
