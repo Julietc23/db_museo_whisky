@@ -89,7 +89,8 @@ def obtener_query(pregunta):
         messages=mensaje,
         temperature=0
     )
-       return response['choices'][0]['message']['content']
+       return response.choices[0].text
+       #return response['choices'][0]['message']['content']
 
 # Ejecución de la respuesta
 def ejecutar_query(query):
@@ -135,7 +136,8 @@ def obtener_respuesta_openai(question):
         messages=mensaje,
         temperature=0
     )
-       return response['choices'][0]['message']['content']
+       return response.choices[0].text
+       #return response['choices'][0]['message']['content']
 
 
 # Interfaz de inicio de sesión
