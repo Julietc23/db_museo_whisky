@@ -7,10 +7,12 @@ from datetime import datetime
 from dotenv import load_dotenv
 
 # Carga de variables
-load_dotenv()
+#load_dotenv()
+
+st.secrets["API_KEY"]
 
 # Configurar la clave API de OpenAI
-openai.api_key = os.getenv("API_KEY")
+#openai.api_key = os.getenv("API_KEY")
 
 # Función para verificar el usuario y la contraseña desde la base de datos SQLite 
 def verificar_usuario(username, password):
